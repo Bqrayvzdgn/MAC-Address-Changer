@@ -31,12 +31,12 @@ def control_new_mac(interface):
         return None
 
 if __name__ == "__main__":
-    print(Logo)
-    (user_input,arguments) = get_user_input()
+    (user_input, args) = get_user_input()
     change_mac_address(user_input.interface,user_input.mac_address)
     finalized_mac = control_new_mac(str(user_input.interface))
 
     if finalized_mac == user_input.mac_address:
+        print(Logo)
         print("MAC Address is created!")
     else:
         print("An error occurred while creating the MAC Address!")
