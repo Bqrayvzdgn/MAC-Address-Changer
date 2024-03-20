@@ -1,5 +1,5 @@
-import random
-import string
+# import random
+# import string
 import subprocess
 import optparse
 import re
@@ -53,6 +53,6 @@ if __name__ == "__main__":
     change_mac_address(user_input.interface, user_input.mac_address, user_input.random)
     finalized_mac = control_new_mac(str(user_input.interface))
     if finalized_mac == user_input.mac_address:
-        print("Success!")
+        print("MAC Address is created!")
     else:
-        print("Error!")
+        print("An error occurred while creating the MAC Address!")
