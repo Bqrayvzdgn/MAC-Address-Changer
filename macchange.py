@@ -1,3 +1,5 @@
+import random
+import string
 import subprocess
 import optparse
 import re
@@ -17,6 +19,18 @@ def get_user_input():
     parse_object.add_option("-m", "--mac", dest="mac_address", help="New mac address")
     return parse_object.parse_args()
 
+def get_random_mac_address():
+    uppercased_hexdigits = ''.join(set(string.hexdigits.upper()))
+    mac = ""
+    for i in range(6):
+        for j in range(2):
+            if i == 0:
+                mac += random.choice("02468ACE")
+            else:
+                mac += random.choice(uppercased_hexdigits)
+        mac += ":"
+    return mac.strip(":")
+
 def change_mac_address(user_interface,user_mac_address):
     subprocess.call(["ifconfig",user_interface,"down"])
     subprocess.call(["ifconfig", user_interface,"hw","ether",user_mac_address])
@@ -32,11 +46,16 @@ def control_new_mac(interface):
 
 if __name__ == "__main__":
     print(Logo)
-    (user_input,arguments) = get_user_input()
-    change_mac_address(user_input.interface,user_input.mac_address)
-    finalized_mac = control_new_mac(str(user_input.interface))
+    (user_input, arguments) = get_user_input()
+    
+    if user_input.mac_address:
+        change_mac_address(user_input.interface, user_input.mac_address)
+        finalized_mac = control_new_mac(str(user_input.interface))
 
-    if finalized_mac == user_input.mac_address:
-        print("MAC Address is created!")
+        if finalized_mac == user_input.mac_address:
+            print("MAC Address is successfully changed!")
+        else:
+            print("An error occurred while changing the MAC Address!")
     else:
-        print("An error occurred while creating the MAC Address!")
+        random_mac = get_random_mac_address()
+        print("Randomly generated MAC Address:", random_mac)
