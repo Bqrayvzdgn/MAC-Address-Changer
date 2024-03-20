@@ -12,7 +12,7 @@ Logo = """
 """
 
 def get_user_input():
-    parser = argparse.ArgumentParser(description="This application was developed by kenxzz.", usage="python macchanger.py -h", epilog="[ Default ] python3 macchanger.py -i [interface] -m [XX:XX:XX:XX:XX:XX]")
+    parser = argparse.ArgumentParser(description="This application was developed by kenxzz.", usage="[ Default ] python3 macchanger.py -i [interface] -m [XX:XX:XX:XX:XX:XX]", epilog="[ Helper ] -> python3 macchanger.py -h")
     parser.add_argument("-i", "--iface", dest="interface", help="Interface to change!")
     parser.add_argument("-m", "--mac", dest="mac_address", help="New mac address")
     return parser.parse_args()
