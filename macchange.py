@@ -24,7 +24,6 @@ def change_mac_address(user_interface, user_mac_address):
     subprocess.call(["ifconfig", user_interface, "up"])
     finalized_mac = control_new_mac(user_interface)
     if finalized_mac == user_mac_address:
-        print(Logo)
         print("MAC Address is created!")
     else:
         print("An error occurred while creating the MAC Address!")
