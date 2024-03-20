@@ -22,16 +22,9 @@ def get_user_input():
     return parser.parse_args()
 
 def get_random_mac_address():
-    uppercased_hexdigits = ''.join(set(string.hexdigits.upper()))
-    mac = ""
-    for i in range(6):
-        for j in range(2):
-            if i == 0:
-                mac += random.choice("02468ACE")
-            else:
-                mac += random.choice(uppercased_hexdigits)
-        mac += ":"
-    return mac.strip(":")
+    random_mac = [random.choice("02468ACE") if i == 0 else random.choice(string.hexdigits.upper()) for i in range(6)]
+    mac_address = ":".join(random_mac)
+    return mac_address
 
 def change_mac_address(user_interface, user_mac_address):
     subprocess.call(["ifconfig", user_interface, "down"])
