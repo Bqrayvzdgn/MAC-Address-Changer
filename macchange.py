@@ -40,4 +40,4 @@ if __name__ == "__main__":
     if finalized_mac == user_input.mac_address:
         print("MAC Address is created!")
     else:
-        print("An error occurred while creating the MAC Address!"). 
+        print("An error occurred while creating the MAC Address!")
