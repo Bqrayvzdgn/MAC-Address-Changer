@@ -1,3 +1,5 @@
+import random
+import string
 import subprocess
 import optparse
 import re
@@ -17,11 +19,22 @@ def get_user_input():
     parse_object.add_option("-i", "--iface", dest="interface", help="Interface to change!")
     parse_object.add_option("-m", "--mac", dest="mac_address", help="New mac address")
     parse_object.add_option("-s", "--show", help="Network interface show", action="store_true")
-    parse_object.add_option("-R", "--random", help="Random mac address", action="store_true")
+    parse_object.add_option("-R", "--random", dest="random", help="Random mac address", action="store_true")
     parse_object.add_option('-r', '--reset', help="Reset to Original MAC", action="store_true")
 
     return parse_object.parse_args()
 
+def get_random_mac_address():
+    uppercased_hexdigits = ''.join(set(string.hexdigits.upper()))
+    mac = ""
+    for i in range(6):
+        for j in range(2):
+            if i == 0:
+                mac += random.choice("02468ACE")
+            else:
+                mac += random.choice(uppercased_hexdigits)
+        mac += ":"
+    return mac.strip(":")
 
 def change_mac_address(interface, mac_address):
     subprocess.call(["ifconfig", interface, "down"])
@@ -41,7 +54,7 @@ def control_new_mac(interface):
 if __name__ == "__main__":
     print(Logo)
     user_input = get_user_input()
-    change_mac_address(user_input.interface, user_input.mac_address)
+    change_mac_address(user_input.interface, user_input.mac_address, user_input.random)
     finalized_mac = control_new_mac(str(user_input.interface))
 
     if finalized_mac == user_input.mac_address:
