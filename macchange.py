@@ -12,6 +12,7 @@ Logo = """
 """
 
 def get_user_input():
+    print(Logo)
     parser = argparse.ArgumentParser(description="This application was developed by kenxzz.", usage="python3 macchanger.py -i [interface] -m [XX:XX:XX:XX:XX:XX]", epilog="[ Helper ] -> python3 macchanger.py -h")
     parser.add_argument("-i", "--iface", dest="interface", help="Enter your network interface")
     parser.add_argument("-m", "--mac", dest="mac_address", help="Enter your mac address")
@@ -23,6 +24,7 @@ def change_mac_address(user_interface, user_mac_address):
     subprocess.call(["ifconfig", user_interface, "up"])
     finalized_mac = control_new_mac(user_interface)
     if finalized_mac == user_mac_address:
+        print(Logo)
         print("MAC Address is created!")
     else:
         print("An error occurred while creating the MAC Address!")
