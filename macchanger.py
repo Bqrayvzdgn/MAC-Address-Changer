@@ -2,14 +2,32 @@ import subprocess
 import optparse
 import re
 
+Logo = """
+██╗░░██╗███████╗███╗░░██╗██╗░░██╗███████╗███████╗
+██║░██╔╝██╔════╝████╗░██║╚██╗██╔╝╚════██║╚════██║
+█████═╝░█████╗░░██╔██╗██║░╚███╔╝░░░███╔═╝░░███╔═╝
+██╔═██╗░██╔══╝░░██║╚████║░██╔██╗░██╔══╝░░██╔══╝░░
+██║░╚██╗███████╗██║░╚███║██╔╝╚██╗███████╗███████╗
+╚═╝░░╚═╝╚══════╝╚═╝░░╚══╝╚═╝░░╚═╝╚══════╝╚══════╝
+"""
+
+
 def get_user_input():
-    parse_object = optparse.OptionParser(description="macchanger [Option]", usage="python3 macchanger --help", epilog="[ Manual Mode ] python3 macchanger.py -i [interface] -m [XX:XX:XX:XX:XX:XX]")
+    parse_object = optparse.OptionParser(description="This application was developed by kenxzz.", usage="python macchanger.py -h", epilog="[ Default ] python3 macchanger.py -i [interface] -m [XX:XX:XX:XX:XX:XX]")
     parse_object.add_option("-i", "--iface", dest="interface", help="Interface to change!")
     parse_object.add_option("-m", "--mac", dest="mac_address", help="New mac address")
     parse_object.add_option("-s", "--show", help="Network interface show", action="store_true")
     parse_object.add_option("-R", "--random", help="Random mac address", action="store_true")
     parse_object.add_option('-r', '--reset', help="Reset to Original MAC", action="store_true")
+
     return parse_object.parse_args()
+
+
+def change_mac_address(interface, mac_address):
+    subprocess.call(["ifconfig", interface, "down"])
+    subprocess.call(["ifconfig", interface, "hw", "ether", mac_address])
+    subprocess.call(["ifconfig", interface, "up"])
+
 
 def control_new_mac(interface):
     ifconfig = subprocess.check_output(["ifconfig", interface])
@@ -19,14 +37,10 @@ def control_new_mac(interface):
     else:
         return None
 
-def change_mac_address(interface, mac_address):
-    subprocess.call(["ifconfig", interface, "down"])
-    subprocess.call(["ifconfig", interface, "hw", "ether", mac_address])
-    subprocess.call(["ifconfig", interface, "up"])
 
 if __name__ == "__main__":
-    print("Macchanger started!")
-    (user_input, arguments) = get_user_input()
+    print(Logo)
+    user_input = get_user_input()
     change_mac_address(user_input.interface, user_input.mac_address)
     finalized_mac = control_new_mac(str(user_input.interface))
 
