@@ -24,7 +24,9 @@ def get_user_input():
 def get_random_mac_address():
     random_mac = [random.choice("02468ACE") if i == 0 else random.choice(string.hexdigits.upper()) for i in range(6)]
     mac_address = ":".join(random_mac)
+    mac_address = mac_address.replace(":", ":").replace(";", ":").replace(".", ":")
     return mac_address
+
 
 def change_mac_address(user_interface, user_mac_address):
     subprocess.call(["ifconfig", user_interface, "down"])
