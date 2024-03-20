@@ -46,12 +46,10 @@ def control_new_mac(interface):
 
 if __name__ == "__main__":
     print(Logo)
-    (user_input, arguments) = get_user_input()
-    
+    (user_input, arguments) = get_user_input()   
     if user_input.mac_address:
         change_mac_address(user_input.interface, user_input.mac_address)
         finalized_mac = control_new_mac(str(user_input.interface))
-
         if finalized_mac == user_input.mac_address:
             print("MAC Address is successfully changed!")
         else:
