@@ -17,6 +17,8 @@ def get_user_input():
     parse_object = optparse.OptionParser(description="This application was developed by kenxzz.", usage="python macchanger.py -h", epilog="[ Default ] python3 macchanger.py -i [interface] -m [XX:XX:XX:XX:XX:XX]")
     parse_object.add_option("-i", "--iface", dest="interface", help="Interface to change!")
     parse_object.add_option("-m", "--mac", dest="mac_address", help="New mac address")
+    parse_object.add_option("-r", "--random", dest="random", help="Random mac address")
+
     return parse_object.parse_args()
 
 def get_random_mac_address():
