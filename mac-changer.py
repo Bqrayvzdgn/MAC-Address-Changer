@@ -24,8 +24,8 @@ class Banners:
 def get_user_input():
     print(Banners.LOGO)
     parser = argparse.ArgumentParser(description="This application was developed by kenxzz.", usage="python3 macchanger.py -i [interface] -m [XX:XX:XX:XX:XX:XX]", epilog="[Important] You must have sudo privileges for Mac Changer to work properly.!")
-    parser.add_argument("-i", "--iface", dest="interface", help="Enter your network interface")
-    parser.add_argument("-m", "--mac", dest="mac_address", help="Enter your mac address")
+    parser.add_argument("-i", "--iface", dest="interface", help="Enter your network interface.")
+    parser.add_argument("-m", "--mac", dest="mac_address", help="Enter your mac address.")
     return parser.parse_args()
 
 def change_mac_address(user_interface, user_mac_address):
