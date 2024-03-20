@@ -1,4 +1,4 @@
-# MAC Changer with Python
+# Mac changer with Python
 
 <p>A python script that allows you to easily change your MAC address on Linux computers.
 </p>
