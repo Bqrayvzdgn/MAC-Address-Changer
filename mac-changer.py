@@ -46,6 +46,5 @@ def control_new_mac(interface):
     else:
         return None
 
-if __name__ == "__main__":
-    user_input = get_user_input()
-    change_mac_address(user_input.interface, user_input.mac_address)
+user_input = get_user_input()
+change_mac_address(user_input.interface, user_input.mac_address)
