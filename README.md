@@ -7,13 +7,13 @@
 
 ```shell
 sudo su
-git clone https://github.com/Bqrayvzdgn/Macchanger.git
-cd Macchanger/
-python3 macchanger.py -h
+git clone https://github.com/Bqrayvzdgn/Mac-changer.git
+cd Mac-changer/
+python3 mac-changer.py -h
 ```
 
 ### Usage :
 ```shell
 sudo su
-python3 macchanger.py -i [Interface] -m [MAC Address]
+python3 mac-changer.py -i [Interface] -m [MAC Address]
 ```
