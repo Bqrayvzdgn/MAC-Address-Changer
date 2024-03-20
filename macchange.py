@@ -12,15 +12,20 @@ Logo = """
 """
 
 def get_user_input():
-    parser = argparse.ArgumentParser(Logo, description="This application was developed by kenxzz.", usage="python3 macchanger.py -i [interface] -m [XX:XX:XX:XX:XX:XX]", epilog="You can access the source codes at https://github.com/Bqrayvzdgn/Macchanger.")
-    parser.add_argument("-i", "--interface", dest="interface", help="Enter your network interface")
-    parser.add_argument("-m", "--mac_address", dest="mac_address", help="Enter your mac address")
+    parser = argparse.ArgumentParser(description="This application was developed by kenxzz.", usage="python3 macchanger.py -i [interface] -m [XX:XX:XX:XX:XX:XX]", epilog="[ Helper ] -> python3 macchanger.py -h")
+    parser.add_argument("-i", "--iface", dest="interface", help="Enter your network interface")
+    parser.add_argument("-m", "--mac", dest="mac_address", help="Enter your mac address")
     return parser.parse_args()
 
 def change_mac_address(user_interface, user_mac_address):
     subprocess.call(["ifconfig", user_interface, "down"])
     subprocess.call(["ifconfig", user_interface, "hw", "ether", user_mac_address])
     subprocess.call(["ifconfig", user_interface, "up"])
+    finalized_mac = control_new_mac(user_interface)
+    if finalized_mac == user_mac_address:
+        print("MAC Address is created!")
+    else:
+        print("An error occurred while creating the MAC Address!")
 
 def control_new_mac(interface):
     output = subprocess.check_output(["ifconfig", interface])
@@ -31,12 +36,5 @@ def control_new_mac(interface):
         return None
 
 if __name__ == "__main__":
-    print(Logo)
-    (user_input, args) = get_user_input()
-    change_mac_address(user_input.interface,user_input.mac_address)
-    finalized_mac = control_new_mac(str(user_input.interface))
-
-    if finalized_mac == user_input.mac_address:
-        print("MAC Address is created!")
-    else:
-        print("An error occurred while creating the MAC Address!")
+    user_input = get_user_input()
+    change_mac_address(user_input.interface, user_input.mac_address)
