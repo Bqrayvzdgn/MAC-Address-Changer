@@ -59,6 +59,5 @@ if __name__ == "__main__":
         print(f"Your MAC Address has been created : {str(user_input.mac_address)}")
     finally:
         print("Exiting.")
-        print(Banners.QUIT)
 else:
     print(Banners.ERROR)
