@@ -1,5 +1,8 @@
 import subprocess
+import optparse
 import re
+import time
+
 
 class Banners:
     ERROR = """
@@ -20,15 +23,22 @@ class Banners:
     ▒█▄▄█ ░▀▀█▄ ▒█░▒█ ▒█▄▄▀ ▒█▄▄▄ ░░▀▄▀░
     """
 
+
+def get_user_input():
+    parse_object = optparse.OptionParser(
+        description="This tool was developed by bqrdev.",
+        usage="python mac-changer.py -i [INTERFACE] -h [MAC_ADDRES]"
+    )
+    parse_object.add_option("-i", "--interface", dest="interface", help="interface to change!")
+    parse_object.add_option("-m", "--mac", dest="mac_address", help="new mac address")
+    return parse_object.parse_args()
+
+
 def change_mac_address(user_interface, user_mac_address):
     subprocess.call(["ifconfig", user_interface, "down"])
     subprocess.call(["ifconfig", user_interface, "hw", "ether", user_mac_address])
     subprocess.call(["ifconfig", user_interface, "up"])
-    finalized_mac = control_new_mac(user_interface)
-    if finalized_mac == user_mac_address:
-        print("MAC Address is created!")
-    else:
-        print(Banners.ERROR)
+
 
 def control_new_mac(interface):
     output = subprocess.check_output(["ifconfig", interface])
@@ -37,15 +47,20 @@ def control_new_mac(interface):
         return new_mac.group(0)
     else:
         return None
-    
+
+
 if __name__ == "__main__":
-    iface = input(str("Enter the network interface: "))
-    macaddr = input(str("Enter the Mac address: "))
-    try:        
-        change_mac_address(iface, macaddr)
-    except KeyboardInterrupt:
-        print("Exiting.")
+    print(Banners.LOGO)
+    (user_input, args) = get_user_input()
+    change_mac_address(user_input.interface, user_input.mac_address)
+    finalized_mac = control_new_mac(str(user_input.interface))
+    try:
+        change_mac_address(user_input.interface, user_input.mac_address)
+        print(f"Your MAC Address has been created : {str(user_input.mac_address)}")
+    except SyntaxError:
+        print(SyntaxError)
     finally:
-        print(Banners.QUIT)
+        print("Exiting.")
+        time.sleep(1)
 else:
     print(Banners.ERROR)
