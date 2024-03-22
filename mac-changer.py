@@ -1,7 +1,6 @@
 import subprocess
 import optparse
 import re
-import time
 
 
 class Banners:
