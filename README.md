@@ -6,11 +6,13 @@
 sudo su
 git clone https://github.com/Bqrayvzdgn/MAC-Changer.git
 cd MAC-Changer/
-python3 mac-changer.py -h
+python mac-changer.py -h
 ```
 
 ### Usage :
 ```shell
 sudo su
-python3 mac-changer.py -i [Interface] -m [MAC Address]
+python mac-changer.py --interface [Network Inteface] --mac [MAC ADDRESS]
+OR
+python mac-changer.py -i [Network Interface] -m [MAC ADDRESS]
 ```
