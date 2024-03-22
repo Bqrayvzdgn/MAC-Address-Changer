@@ -51,8 +51,6 @@ if __name__ == "__main__":
     try:
         change_mac_address(user_input.interface, user_input.mac_address)
         print(f"Your MAC Address has been created : {str(user_input.mac_address)}")
-    except TypeError:
-        print(Banners.QUIT)
     finally:
         print("Exiting.")
         time.sleep(1)
